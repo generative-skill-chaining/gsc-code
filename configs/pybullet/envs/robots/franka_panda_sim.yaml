@@ -1,0 +1,82 @@
+urdf: configs/pybullet/envs/assets/franka_panda/franka_panda_robotiq.urdf
+
+arm_class: sim.arm.Arm
+arm_kwargs:
+  arm_urdf: configs/pybullet/envs/assets/franka_panda/franka_panda.urdf
+  torque_joints:
+    - joint1
+    - joint2
+    - joint3
+    - joint4
+    - joint5
+    - joint6
+    - joint7
+
+  # q_home: [0.0, -0.52359878, 0.0, -2.61799388, 0.0, 2.0943951, 0.0]
+  q_home: [0.0, -0.5, 0.0, -2.28, 0.0, 1.78, 0.0]
+  ee_offset: [0.0, 0.0, 0.251]
+
+  pos_gains: [121, 22]
+  ori_gains: [121, 16]
+  nullspace_joint_gains: [40, 10]
+  nullspace_joint_indices: [2, 4]
+
+  pos_threshold: [0.01, 0.01]
+  ori_threshold: [0.01, 0.01]
+  timeout: 10.0
+
+  redisgl_config:
+    gripper_offset: [0.0, 0.0, 0.107]
+
+    redis_host: "127.0.0.1"
+    redis_port: 6000
+    redis_password: taps
+
+    redis_keys:
+      namespace: "franka_panda"
+      control_pos: "franka_panda::control::pos"
+      control_ori: "franka_panda::control::ori"
+      control_pos_des: "franka_panda::control::pos_des"
+      control_ori_des: "franka_panda::control::ori_des"
+      opspace_inertia_pos: "franka_panda::opspace::inertia_pos"
+      opspace_inertia_ori: "franka_panda::opspace::inertia_ori"
+      sensor_q: "franka_panda::sensor::q"
+      sensor_dq: "franka_panda::sensor::dq"
+      sensor_pos: "franka_panda::sensor::pos"
+      sensor_ori: "franka_panda::sensor::ori"
+
+gripper_class: sim.gripper.Gripper
+gripper_kwargs:
+  torque_joints:
+    - left_inner_finger_pad_prismatic
+
+  position_joints:
+    - right_inner_finger_pad_prismatic
+    - finger_joint
+    - left_inner_knuckle_joint
+    - left_inner_finger_joint
+    - right_outer_knuckle_joint
+    - right_inner_knuckle_joint
+    - right_inner_finger_joint
+
+  finger_links:
+    - left_inner_finger_pad_collision
+    - right_inner_finger_pad_collision
+
+  base_link: robotiq_arg2f_base_link
+
+  command_multipliers:
+    [0.04, -0.04, 0.813, 0.813, -0.813, 0.813, 0.813, -0.813]
+
+  finger_contact_normals:
+    - [0.0, 1.0, 0.0]  # left_inner_finger_pad_collision
+    - [0.0, -1.0, 0.0]  # right_inner_finger_pad_collision
+
+  inertia_kwargs:
+    mass: 0.83
+    com: [0, 0, 0.11]
+    inertia: [0.001, 0.0025, 0.0017, 0, 0, 0]
+
+  pos_gains: [400, 40]
+  pos_threshold: 0.001
+  timeout: 1.0

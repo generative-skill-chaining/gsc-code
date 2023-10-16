@@ -1,0 +1,63 @@
+[build-system]
+requires = ["setuptools>=40.8.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "generative_skill_chaining"
+version = "1.0.0"
+authors = [
+  { name = "Utkarsh A. Mishra", email = "umishra31@gatech.edu" },
+]
+description = "Long-Horizon Skill Planning with Diffusion Models."
+license = { file = "LICENSE" }
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+]
+dependencies = [
+  # Computing
+  "numpy",
+  "scipy",
+  "torch==1.11",
+  # Image processing
+  "imageio",
+  "pillow",
+  "scikit-image",
+  # IO
+  "pyyaml",
+  "tensorboard",
+  "tqdm",
+  # Env
+  "box2d-py",
+  "gym>=0.25",
+  "pybullet",
+  # Ours
+  "ctrlutils==1.4.1",
+  "pysymbolic>=1.0.1",
+  # scod-regression,
+  "spatialdyn==1.4.4",
+]
+
+[tool.setuptools.packages.find]
+include = ["generative_skill_chaining*"]
+
+[[tool.mypy.overrides]]
+module = [
+  "ctrlutils",
+  "matplotlib.*",
+  "pandas",
+  "PIL",
+  "pybullet",
+  "redis.*",
+  "scipy.*",
+  "seaborn",
+  "skimage",
+  "shapely.*",
+  "spatialdyn",
+  "symbolic",
+  "tqdm"
+]
+ignore_missing_imports = true
